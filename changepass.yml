@@ -1,0 +1,19 @@
+---
+- hosts: nagios
+  remote_user: ubuntu
+  become: yes
+  gather_facts: yes
+  vars:
+    user_name: nagiosadmin
+
+  vars_prompt:
+    - name: "new_password"
+      prompt: "Enter New Password"
+      private: yes
+      encrypt: "md5_crypt"
+      confirm: yes
+      salt_size: 7
+
+  tasks:
+    - name: Change password of existing user
+      user: name={{user_name}} update_password=always password={{new_password}}

@@ -1,0 +1,17 @@
+---
+- hosts: test
+  become: yes
+  gather_facts: yes
+  remote_user: ubuntu
+  
+  tasks:
+   - name: installing apache
+     package:
+      name: apache2
+      state: present  
+   - name: terminating ec2
+     ec2:
+      instance_ids: i-xxxxxxxx
+      state: stopped
+      aws_access_key: xxxxxxxxx
+      aws_secret_key: xxxxxxxxx

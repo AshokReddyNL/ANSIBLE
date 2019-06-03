@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  become: yes
+  remote_user: ubuntu
+  gather_facts: yes
+
+  tasks: 
+   - name: Launching an AWS Instance
+     ec2:    
+      key_name: AWSCLI
+      aws_access_key: xxxxxx
+      aws_secret_key: xxxxxx
+      instance_type: t2.micro
+      image: ami-xxxxxx
+      wait: yes
+      count: 1
+      region: us-west-2
+   - name: Installing required packages
+     package:
+      name: python
+      state: present
+     package:
+      name: apache2
+      state: present
